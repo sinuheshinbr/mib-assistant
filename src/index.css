@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap");
+
+body {
+  font-family: MedievalSharp;
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.app {
+  width: 800px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.header {
+  min-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+
+table.table {
+  table-layout: auto;
+  width: 800px;
+}
+
+th {
+  padding: 0 20px;
+}
