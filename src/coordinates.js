@@ -8,8 +8,8 @@ const toCoordinates = (obj) => {
   let dY3;
   let y;
   let mib = obj.ancient ? "AMIB" : "MIB";
-  if (obj.latDirection.toLowerCase() === "n") {
-    dY1 = Number(obj.latMinute) / 60 + Number(obj.latDegree);
+  if (obj.lngDirection.toLowerCase() === "n") {
+    dY1 = Number(obj.lngMinute) / 60 + Number(obj.lngDegree);
     dY2 = (dY1 * 4096) / 360;
     dY3 = 1624 - dY2;
     if (dY3 < 0) {
@@ -18,7 +18,7 @@ const toCoordinates = (obj) => {
       y = Math.round(dY3);
     }
   } else {
-    dY1 = Number(obj.latMinute) / 60 + Number(obj.latDegree);
+    dY1 = Number(obj.lngMinute) / 60 + Number(obj.lngDegree);
     dY2 = (dY1 * 4096) / 360;
     dY3 = 1624 + dY2;
     if (dY3 < 0) {
@@ -27,8 +27,8 @@ const toCoordinates = (obj) => {
       y = Math.round(dY3);
     }
   }
-  if (obj.lngDirection.toLowerCase() === "w") {
-    dX1 = Number(obj.lngMinute) / 60 + Number(obj.lngDegree);
+  if (obj.latDirection.toLowerCase() === "w") {
+    dX1 = Number(obj.latMinute) / 60 + Number(obj.latDegree);
     dX2 = (dX1 * 5120) / 360;
     dX3 = 1323 - dX2;
     if (dX3 < 0) {
@@ -37,7 +37,7 @@ const toCoordinates = (obj) => {
       x = Math.round(dX3);
     }
   } else {
-    dX1 = Number(obj.lngMinute) / 60 + Number(obj.lngDegree);
+    dX1 = Number(obj.latMinute) / 60 + Number(obj.latDegree);
     dX2 = (dX1 * 5120) / 360;
     dX3 = 1323 + dX2;
     if (dX3 < 0) {
