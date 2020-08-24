@@ -13,7 +13,7 @@ const toCoordinates = (obj) => {
     dX2 = (dX1 * 4096) / 360;
     dX3 = 1624 - dX2;
     if (dX3 < 0) {
-      x = 4096 + dX3;
+      x = Math.round(4096 + dX3);
     } else {
       x = Math.round(dX3);
     }
@@ -22,7 +22,7 @@ const toCoordinates = (obj) => {
     dX2 = (dX1 * 4096) / 360;
     dX3 = 1624 + dX2;
     if (dX3 < 0) {
-      x = 4096 + dX3;
+      x = Math.round(4096 + dX3);
     } else {
       x = Math.round(dX3);
     }
@@ -32,7 +32,7 @@ const toCoordinates = (obj) => {
     dY2 = (dY1 * 5120) / 360;
     dY3 = 1323 - dY2;
     if (dY3 < 0) {
-      y = 5120 + dY3;
+      y = Math.round(5120 + dY3);
     } else {
       y = Math.round(dY3);
     }
@@ -41,7 +41,7 @@ const toCoordinates = (obj) => {
     dY2 = (dY1 * 5120) / 360;
     dY3 = 1323 + dY2;
     if (dY3 < 0) {
-      y = 5120 + dY3;
+      y = Math.round(5120 + dY3);
     } else {
       y = Math.round(dY3);
     }
