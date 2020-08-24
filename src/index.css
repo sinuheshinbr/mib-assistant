@@ -33,16 +33,24 @@ table.table {
 }
 
 th {
-  padding: 0 20px;
   text-align: left;
 }
 
 td {
-  padding: 0 20px;
+  padding: 0 15px 0 0;
   text-align: left;
   vertical-align: top;
+  min-width: 80px;
 }
 
 .MuiFormControl-root {
   min-height: 100px;
+}
+
+.personal {
+  margin-top: 10px;
+}
+
+.icon {
+  margin-right: 5px;
 }

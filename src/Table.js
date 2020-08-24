@@ -3,6 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { TextField, Button } from "@material-ui/core";
 import * as Yup from "yup";
 import Quadrante from "./Quadrante";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const initialValues = {
   latDegree: "",
@@ -44,8 +46,19 @@ class Table extends React.Component {
     super(props);
     this.textInput = React.createRef();
     this.state = {
-      list: []
+      list: [],
+      ancient: false
     };
+  }
+
+  componentDidMount() {
+    let list = localStorage.getItem("list");
+    if (list) {
+      let newList = JSON.parse(list);
+      this.setState({
+        list: newList
+      });
+    }
   }
 
   focusTextInput = () => {
@@ -54,13 +67,32 @@ class Table extends React.Component {
 
   handleSubmit = (values, { resetForm }) => {
     let newList = [...this.state.list];
-    newList.unshift(values);
-    this.setState({
-      list: newList,
-      quadrante: "a"
-    });
+    let newValues = { ancient: this.state.ancient, ...values };
+    newList.unshift(newValues);
+    localStorage.setItem("list", JSON.stringify(newList));
+    this.setState({ list: newList });
     resetForm();
     this.focusTextInput();
+  };
+
+  handleDelete = (index) => {
+    let newList = [...this.state.list];
+    newList.splice(index, 1);
+    localStorage.setItem("list", JSON.stringify(newList));
+    this.setState({ list: newList });
+  };
+
+  handleClear = () => {
+    localStorage.clear();
+    this.setState({
+      list: []
+    });
+  };
+
+  handleCheck = () => {
+    this.setState({
+      ancient: !this.state.ancient
+    });
   };
 
   render() {
@@ -83,8 +115,8 @@ class Table extends React.Component {
                     <th>Lng '</th>
                     <th>Lng (E/W)</th>
                     <th>Quadrant</th>
-                    <th>Add</th>
-                    <th />
+                    <th></th>
+                    <th>Ancient?</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -143,18 +175,49 @@ class Table extends React.Component {
                       <Quadrante name="quadrante" />
                     </td>
                     <td>
-                      <Button type="submit">+</Button>
+                      <Button variant="contained" type="submit">
+                        +
+                      </Button>
+                    </td>
+                    <td>
+                      <Checkbox
+                        color="primary"
+                        checked={this.checked}
+                        onChange={this.handleCheck}
+                      />
+                    </td>
+                    <td>
+                      <div>
+                        <Button
+                          style={{ width: "150px", padding: "6px" }}
+                          onClick={this.handleClear}
+                          variant="contained"
+                        >
+                          <DeleteIcon className="icon" />
+                          Clear data
+                        </Button>
+                      </div>
+                      <div className="personal"></div>
                     </td>
                   </tr>
+                </tbody>
+              </table>
+              <hr />
+              <table>
+                <tbody>
                   {this.state.list.map((obj, index) => (
                     <tr key={index}>
-                      <th>{obj.latDegree}</th>
-                      <th>{obj.latMinute}</th>
-                      <th>{obj.latDirection}</th>
-                      <th>{obj.lngDegree}</th>
-                      <th>{obj.lngMinute}</th>
-                      <th>{obj.lngDirection}</th>
-                      <th>{obj.quadrante}</th>
+                      <td>{obj.latDegree}</td>
+                      <td>{obj.latMinute}</td>
+                      <td>{obj.latDirection}</td>
+                      <td>{obj.lngDegree}</td>
+                      <td>{obj.lngMinute}</td>
+                      <td>{obj.lngDirection}</td>
+                      <td>{obj.quadrante}</td>
+                      <td>
+                        <DeleteIcon onClick={() => this.handleDelete(index)} />
+                      </td>
+                      <td>{obj.ancient ? "Ancient MIB" : "MIB"}</td>
                     </tr>
                   ))}
                 </tbody>
